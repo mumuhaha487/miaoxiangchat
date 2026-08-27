@@ -1,44 +1,64 @@
-# Miaoxiang AI Workspace / 妙想之地
+<p align="center">
+  <img src="frontend/public/assets/site-logo.jpg" alt="妙想之地 Logo" width="144">
+</p>
 
-[中文](#中文) | [English](#english) | [日本語](#日本語)
+<h1 align="center">妙想之地 AI 工作台</h1>
 
-Miaoxiang is a self-hosted AI workspace that combines ordinary chat, Hermes agents,
-browser-backed research, scheduled tasks, artifact generation, and controlled desktop
-automation. This repository contains source code only. Runtime data, conversations,
-credentials, model endpoints, dependencies, signing material, and compiled clients are
-intentionally excluded.
+<p align="center">Chat、Hermes Agent、真实浏览器研究、定时任务与多端协作的一体化自托管工作台</p>
 
-## 中文
+<p align="center">
+  <a href="README.md">中文</a> ·
+  <a href="README.en.md">English</a> ·
+  <a href="README.ja.md">日本語</a>
+</p>
 
-### 项目定位
+## 在线体验
 
-妙想之地不是单纯的聊天壳，也不是只会机械调用搜索接口的 Agent。它将 Chat、
-Hermes Agent、真实浏览器、统筹模型、质量验收、定时任务和多端工作台放在同一套
-权限与会话体系中，适合需要持续研究、文档生产、自动化和远程协作的自托管场景。
+- 测试地址：[http://ai.vmss.cn/](http://ai.vmss.cn/)
+- 如需测试激活码，请发送邮件至 [vrhjio4405@163.com](mailto:vrhjio4405@163.com)。
+- Agent 模式需要较多 CPU、内存和浏览器资源，长期使用建议自行部署。申请测试激活码时，请在邮件中注明：**愿意接受测试环境的容量、稳定性和资源限制**。
 
-### 核心优势
+> 测试站仅用于体验，不应上传密码、密钥、私密文档或其他敏感资料。
 
-- **真实浏览器研究**：Agent 可通过隔离 Chromium、CDP、截图和页面交互查询资料，
-  不只依赖模型记忆或单一搜索摘要。研究型任务可要求浏览器证据后再生成结论。
-- **Hermes 长任务能力**：每个用户拥有隔离工作区，支持终端、文件、浏览器、技能、
-  持久任务和 Cron 定时任务；复杂工作可以持续执行，而不是在一次请求后中断。
-- **统筹、执行与 Chat 分工**：管理员可以让 Chat、统筹和执行使用不同的
-  OpenAI-compatible 模型。统筹模型负责拆解、约束和最终验收，执行模型负责工具与
-  产出，普通 Chat 保持低延迟和低成本。
-- **多维质量门控**：PPT、DOCX、视频等混合交付物使用明确的文件类型契约；缺少文件、
-  类型错误或验收不通过时可进入修订流程，降低“要求 PPT 却只得到 DOC”的概率。
-- **选择性跨会话记忆**：新对话默认保持干净，由模型判断是否需要检索历史偏好以及
-  注入哪些记忆，减少上下文污染和无意义 token 消耗。
-- **统一多端体验**：Web、Android、Windows 和微信小程序复用同一套账户、会话和权限；
-  客户端只负责安全存储、通知、下载、系统桥接等原生能力。
-- **受控电脑操作**：Windows Agent 使用 UI Automation、OCR、截图视觉和可选 ADB，
-  高风险操作需要批准，并保留托盘急停和本地输入暂停机制。
-- **Basic/VIP 权限隔离**：Basic 用户只能使用管理员指定的 Chat 模型；VIP 才能启用
-  Agent、浏览器、文件、定时任务和电脑控制。管理员可独立调整用户权限和模型。
-- **部署级密钥隔离**：首次初始化在当前机器生成独立的会话密钥、内部服务密钥和
-  激活根密钥。不同机器即使使用同一份源码，也不会共享可互换的激活码或内部令牌。
+## 界面预览
 
-### 架构
+### 桌面 Agent 工作台
+
+![桌面 Agent 工作台](docs/images/workspace-desktop.png)
+
+### 手机工作台与顶部 Dock 设置
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/workspace-mobile.png" alt="手机 Agent 工作台"></td>
+    <td width="50%"><img src="docs/images/settings-dock.png" alt="顶部 Dock 显示设置"></td>
+  </tr>
+</table>
+
+### 管理后台模型分工
+
+![管理后台模型分工](docs/images/admin-model-routing.png)
+
+截图使用演示账户和演示任务生成，不包含真实聊天、API Key 或生产数据。
+
+## 项目定位
+
+妙想之地不是简单的聊天外壳，也不只会机械调用搜索接口。它将普通 Chat、Hermes Agent、真实浏览器、统筹模型、执行模型、质量验收、定时任务和多端工作台放在同一套账户、权限与会话体系中，适合持续研究、文档生产、开发协作、网页操作和远程电脑控制等自托管场景。
+
+## 核心优势
+
+- **真实浏览器研究**：Agent 可通过隔离 Chromium、CDP、截图和页面交互查询资料，不只依赖模型记忆或单一搜索摘要。
+- **Hermes 长任务能力**：用户工作区支持终端、文件、技能、持久任务和 Cron 定时任务，复杂工作不必在一次请求后中断。
+- **模型职责分离**：管理员可独立配置 Chat、统筹和执行模型。统筹模型负责计划、约束和验收，执行模型负责工具与产出，Chat 保持低延迟。
+- **多维质量门控**：PPT、DOCX、视频等交付物使用文件类型契约；缺少文件、类型错误或验收不通过时可以进入修订流程。
+- **浏览器证据优先**：研究工作流可以要求先查询和核对网页，再生成报告、文档或其他成果，降低仅凭模型记忆作答的风险。
+- **选择性跨会话记忆**：新会话默认保持干净，由系统按需检索历史偏好，减少无关上下文和 token 消耗。
+- **多端统一**：Web、Android、Windows 与微信小程序共享账户、会话和权限；客户端负责安全存储、通知、下载和系统桥接。
+- **受控电脑操作**：Windows Agent 可结合 UI Automation、OCR、截图视觉和可选 ADB；高风险操作可要求批准，并提供本地急停机制。
+- **Basic/VIP 服务端隔离**：Basic 用户仅使用管理员指定的基础 Chat 模型；VIP 才可使用 Agent、浏览器、文件、定时任务和电脑控制。
+- **部署级密钥隔离**：每台机器首次初始化都生成独立密钥，同一激活码或内部令牌不能跨部署复用。
+
+## 架构
 
 ```text
 Web / Android / Windows / WeChat
@@ -53,19 +73,21 @@ Web / Android / Windows / WeChat
                  Browser Runtime   Workspace
 ```
 
-- `backend/`：FastAPI、SQLite、认证、权限、模型路由、任务调度和质量验收。
-- `frontend/`：React/Vite 响应式工作台和独立管理员后台。
-- `hermes-worker/`：隔离 Hermes Worker、内置技能和浏览器工具包装。
-- `browser-runtime/`：Chromium、CDP、VNC/noVNC 运行环境。
-- `android-app/`：Android 原生容器、安全会话、通知、文件和在线更新。
-- `windows-client/`：Windows 桌面工作台、UIA/OCR/ADB Computer Agent。
-- `wechat-mini-program/`：微信原生登录门和工作台容器。
-- `activation-manager/`：通过管理 API 创建和管理 VIP 激活码的桌面工具。
-- `proxy-bridge/`：可选的宿主机代理桥。
+| 目录 | 说明 |
+| --- | --- |
+| `backend/` | FastAPI、SQLite、认证、权限、模型路由、任务调度和质量验收 |
+| `frontend/` | React/Vite 响应式工作台和独立管理员后台 |
+| `hermes-worker/` | 隔离 Hermes Worker、内置技能和浏览器工具包装 |
+| `browser-runtime/` | Chromium、CDP、VNC/noVNC 运行环境 |
+| `android-app/` | Android 原生容器、安全会话、通知、文件和在线更新 |
+| `windows-client/` | Windows 工作台、UIA/OCR/ADB Computer Agent |
+| `wechat-mini-program/` | 微信登录门和工作台容器 |
+| `activation-manager/` | 通过管理 API 创建和管理 VIP 激活码 |
+| `proxy-bridge/` | 可选的宿主机代理桥 |
 
-### 首次启动
+## 快速开始
 
-要求：Linux、Bash、Docker Engine、Docker Compose v2。源码包不包含依赖或构建产物。
+要求：Linux、Bash、Docker Engine、Docker Compose v2。源代码包不包含依赖目录、运行数据或已编译客户端。
 
 ```bash
 unzip miaoxiang.zip
@@ -73,142 +95,67 @@ cd miaoxiang
 bash scripts/start.sh
 ```
 
-当 `.env` 不存在时，`start.sh` 会自动调用 `scripts/initialize.sh`。初始化过程会询问：
+如果 `.env` 不存在，`start.sh` 会先运行交互式初始化；已经初始化时则直接启动。初始化会询问：
 
-1. 应用名称、部署路径、Web 端口和公网 HTTPS 地址；
+1. 应用名称、部署路径、Web 端口和公开 HTTPS 地址；
 2. 管理员用户名和管理员密码；
-3. 主执行模型的 API URL、模型名和 API Key；
-4. 是否单独配置 Chat 模型；
-5. 是否开启独立统筹模型及其 URL、模型名和 API Key；
-6. 可选 SMTP 邮箱服务；
-7. 可选微信 AppID、AppSecret 和云函数桥接配置。
+3. 执行模型的 API URL、模型名和 API Key；
+4. 是否需要单独的 Chat 模型，以及对应连接信息；
+5. 是否需要并开启统筹模型，以及对应连接信息；
+6. 可选的 SMTP 邮件设置；
+7. 可选的微信 AppID、AppSecret 与云函数桥接配置。
 
-以下密钥不会要求操作者手工复用，初始化时会为当前部署分别随机生成：
-
-- `APP_SECRET`：登录会话、可信设备和服务端摘要；
-- `ACTIVATION_SECRET`：VIP 激活码及注册链接；
-- `INTERNAL_BROWSER_KEY`：浏览器运行时内部认证；
-- `HERMES_API_KEY`：Hermes Worker 内部认证；
-- `WECHAT_CLOUD_BRIDGE_SECRET`：仅在启用微信登录时生成。
-
-`.env` 权限会设置为 `0600`，`data/users` 设置为 `0700`。不要提交 `.env`、数据库、
-日志、用户工作区、APK/EXE、签名文件或任何导出数据。
-
-常用命令：
+示例中的 `https://api.example.com/v1`、`your-model-name` 和 `sk-your-key` 只是格式说明，不是真实服务或密钥。
 
 ```bash
 bash scripts/start.sh   # 初始化（如有需要）并启动
-bash scripts/status.sh  # 查看项目容器和动态运行时
-bash scripts/stop.sh    # 停止本项目容器，保留持久数据
+bash scripts/status.sh  # 查看本项目容器和动态运行时
+bash scripts/stop.sh    # 停止本项目，保留持久数据
 ```
 
-### 模型配置
+## 模型和权限
 
-所有模型连接均为 OpenAI Chat Completions 兼容接口。README 和 `.env.example` 中的
-`https://api.example.com/v1`、`your-model-name`、`sk-your-key` 都只是格式示例。
+所有模型连接均采用 OpenAI Chat Completions 兼容接口。
 
-| 角色 | 用途 | 初始配置 |
+| 角色 | 用途 | 默认关系 |
 | --- | --- | --- |
-| Chat | 访客、Basic 与普通对话 | 可独立配置或继承主模型 |
-| Coordinator | 计划、分工、验收、修订引导 | 可关闭或使用独立模型 |
+| Chat | 访客、Basic 与普通对话 | 可独立配置或继承执行模型 |
+| Coordinator | 计划、分工、最终验收与修订引导 | 可关闭或使用独立模型 |
 | Executor | Agent 工具调用和任务执行 | 主模型 |
 
-管理员可在后台再次更新三类连接。API Key 加密保存，管理接口只返回“是否已配置”，
-不会返回密钥明文。
+普通用户只能使用基础 Chat 模式和管理员允许的模型。登录且已激活 VIP 的用户才可进入 Agent 模式以及浏览器、终端、文件、计划任务和电脑控制。管理员可在后台为单个用户调整权限，并分别更新 Chat、统筹和执行模型。
 
-### 客户端构建配置
+## 动态激活机制
 
-- Web：构建时可设置 `VITE_PUBLIC_APP_ORIGIN=https://your-domain.example`。
-- Android：构建时设置 `AICHAT_PUBLIC_ORIGIN=https://your-domain.example`；签名信息只从
-  `AICHAT_KEYSTORE` 和 `AICHAT_KEYSTORE_PASSWORD` 环境变量读取。
-- Windows：首次运行前设置 `MIAOXIANG_SERVER_URL=https://your-domain.example`，也可以
-  使用 `--server` 覆盖。
-- 微信小程序：发布前修改 `wechat-mini-program/utils/config.js` 中的公开域名和云环境 ID，
-  云函数秘密通过平台环境变量注入。
+- 首次初始化会生成当前部署独有的 `ACTIVATION_SECRET`，不写死在源码中。
+- 每次后端启动都会创建新的加密轮次，并随机选择新的激活码摘要算法和注册链接认证算法；两类算法都保证与上一次不同。
+- 当前实现分别从 HMAC-SHA-256、HMAC-SHA3-256、带密钥 BLAKE2 系列中选择，摘要和认证使用独立的算法集合。
+- 每轮使用新的随机 salt，并从部署根密钥派生轮次密钥；数据库不保存激活码明文。
+- 私有轮次状态存放在被 Git 忽略的运行数据目录，并带完整性认证。历史轮次保留用于验证已经签发且仍有效的激活码。
+- 不同机器的根密钥和轮次状态不同，因此同一份源码部署到不同机器后，激活码不能互相通用。
 
-### 安全与隐私
+## 安全与隐私
 
-- 对外只需暴露 Web 入口；后端、CDP、VNC 和 Worker 内部连接应保留在 Docker 网络。
-- Windows 凭据使用当前用户 DPAPI；服务端模型密钥使用部署密钥派生后密封保存。
-- 激活码数据库只保存带部署密钥的摘要，不保存可再次读取的完整激活码。
+- `.env`、数据库、聊天记录、日志、用户工作区、API URL、API Key、签名材料和构建产物均不应提交。
+- 初始化生成 `APP_SECRET`、`ACTIVATION_SECRET`、浏览器内部密钥、Hermes 内部密钥和可选微信桥接密钥；`.env` 权限设置为 `0600`。
+- 模型 API Key 加密保存，管理接口只返回是否已配置，不返回密钥明文。
+- 服务端、CDP、VNC 和 Worker 内部端口应只存在于容器网络，对外只暴露 Web 入口。
 - 每个用户的 Hermes、浏览器配置、附件和工作区按用户隔离。
-- Git 忽略规则默认排除依赖、运行数据、密钥、聊天数据库和构建产物。
-- 公开仓库前仍应使用 GitHub secret scanning，并复核历史提交；删除当前文件不能清除
-  旧 commit 中已经提交过的秘密。
+- 发布前建议启用 GitHub Secret Scanning 并复核提交历史；删除当前文件不会清除旧提交中的秘密。
 
-### 动态激活算法说明
+## 客户端配置
 
-当前源码已经把激活根密钥与应用会话密钥分离，并在每次首次初始化时随机生成，因此
-不同部署的激活码不能互用。后续“多种变换方式随机选择”的算法接口将在规则确定后再
-实现；在此之前不会把未确认的算法写死或宣称已完成。
+- Web：构建时设置 `VITE_PUBLIC_APP_ORIGIN=https://your-domain.example`。
+- Android：设置 `AICHAT_PUBLIC_ORIGIN=https://your-domain.example`；签名信息仅通过环境变量提供。
+- Windows：首次运行前设置 `MIAOXIANG_SERVER_URL=https://your-domain.example`，也可使用 `--server` 覆盖。
+- 微信小程序：发布前配置公开域名和云环境 ID，私密值通过平台环境变量注入。
 
-## English
-
-### Overview
-
-Miaoxiang is a self-hosted workspace for Chat and Hermes agents. It adds browser-backed
-research, scheduled execution, role-based model routing, artifact acceptance, selective
-memory, and controlled desktop automation to a shared multi-client account system.
-
-### Why it is different
-
-- Research can be performed in an isolated real browser instead of relying only on model
-  memory or search snippets.
-- Hermes workers support files, terminal tools, skills, long-running work, and Cron tasks.
-- Chat, coordinator, and executor models can be configured independently.
-- Required artifacts are checked by type and missing deliverables can trigger revision.
-- Cross-conversation memory is selected by an LLM and is not injected by default.
-- Basic and VIP capabilities are separated on the server, not merely hidden in the UI.
-- Web, Android, Windows, and WeChat clients share accounts, conversations, and permissions.
-- Every installation receives independent session, runtime, and activation secrets.
-
-### Quick start
-
-```bash
-unzip miaoxiang.zip
-cd miaoxiang
-bash scripts/start.sh
-```
-
-On the first run, an interactive initializer creates `.env`, asks for administrator and
-model settings, optionally configures SMTP and WeChat, and generates deployment-specific
-secrets. Later runs start directly. Use `scripts/status.sh` and `scripts/stop.sh` for status
-and shutdown. Never commit `.env`, `data/`, credentials, databases, logs, or binaries.
-
-All URLs and keys in examples are placeholders. Client origins must be supplied at build
-or first-run time as described in the Chinese section.
-
-## 日本語
-
-### 概要
-
-妙想之地は、通常の Chat、Hermes Agent、実ブラウザー調査、定期タスク、成果物検査、
-選択的メモリー、Windows 操作を一つにまとめたセルフホスト型 AI ワークスペースです。
-
-### 特長
-
-- 隔離された Chromium を利用し、モデルの記憶だけに依存しない調査ができます。
-- Hermes Worker はファイル、端末、スキル、長時間タスク、Cron を扱えます。
-- Chat・統括・実行モデルを個別に設定できます。
-- PPT/DOCX などの必須成果物を種類ごとに検査し、不足時は修正工程へ戻せます。
-- 会話をまたぐメモリーは LLM が必要なものだけを選びます。
-- Basic/VIP 権限はサーバー側で分離されています。
-- Web、Android、Windows、WeChat で同じアカウントと会話を共有します。
-- 初期化ごとに導入固有の秘密鍵を生成し、別の導入環境とは共有しません。
-
-### 起動
-
-```bash
-unzip miaoxiang.zip
-cd miaoxiang
-bash scripts/start.sh
-```
-
-初回のみ対話式の初期化が実行され、管理者、モデル、任意の SMTP/WeChat 設定を入力
-します。実際の URL、API Key、パスワードはソースコードに含まれていません。
-
-## Upstream projects
+## 上游项目
 
 - [Hermes Agent](https://github.com/NousResearch/hermes-agent)
 - [noVNC](https://github.com/novnc/noVNC)
 - [Playwright](https://playwright.dev/)
+
+## 许可与责任
+
+请根据仓库实际许可证使用本项目。部署者应自行保护模型密钥、用户数据和公网入口，并遵守所接入模型、网站及自动化目标平台的服务条款。
