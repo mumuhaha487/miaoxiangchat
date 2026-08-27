@@ -1,0 +1,28 @@
+Metadata-Version: 2.4
+Name: miaoxiang-computer-agent
+Version: 0.6.2
+Summary: 妙想之地 Windows 桌面工作区、Computer Use 与 ADB 客户端
+License: Proprietary; includes MIT-licensed Enikk-derived portions
+Requires-Python: <3.14,>=3.11
+Requires-Dist: httpx==0.28.1
+Requires-Dist: websockets==15.0.1
+Requires-Dist: mss==10.1.0
+Requires-Dist: Pillow==12.3.0
+Requires-Dist: numpy==2.2.6
+Requires-Dist: opencv-python==4.12.0.88
+Requires-Dist: rapidocr-onnxruntime==1.4.4
+Requires-Dist: onnxruntime==1.22.1
+Requires-Dist: pywin32==311; sys_platform == "win32"
+Requires-Dist: pyautogui==0.9.54; sys_platform == "win32"
+Requires-Dist: pywinauto==0.6.9; sys_platform == "win32"
+Requires-Dist: pynput==1.8.1; sys_platform == "win32"
+Requires-Dist: pystray==0.19.5; sys_platform == "win32"
+Requires-Dist: psutil==7.1.0; sys_platform == "win32"
+Requires-Dist: defusedxml==0.7.1
+Requires-Dist: pywebview==6.2.1; sys_platform == "win32"
+Provides-Extra: dev
+Requires-Dist: backports.tarfile==1.2.0; extra == "dev"
+Requires-Dist: pytest==9.0.3; extra == "dev"
+Requires-Dist: pytest-asyncio==1.4.0; extra == "dev"
+Requires-Dist: ruff==0.13.2; extra == "dev"
+Requires-Dist: pyinstaller==6.16.0; sys_platform == "win32" and extra == "dev"

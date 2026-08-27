@@ -1,0 +1,56 @@
+{
+  "appid": "touristappid",
+  "projectname": "AIchatMUMU",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "./",
+  "cloudfunctionRoot": "./cloudfunctions/",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "minifyJS": true,
+    "minifyWXML": true,
+    "minifyWXSS": true,
+    "autoAudits": false,
+    "compileHotReLoad": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "packNpmManually": true,
+    "packNpmRelationList": [
+      {
+        "packageJsonPath": "./package.json",
+        "miniprogramNpmDistDir": "./"
+      }
+    ]
+  },
+  "packOptions": {
+    "ignore": [
+      { "type": "folder", "value": "node_modules" },
+      { "type": "folder", "value": "scripts" },
+      { "type": "folder", "value": "tests" },
+      { "type": "folder", "value": "docs" },
+      { "type": "folder", "value": "cloudfunctions" },
+      { "type": "folder", "value": "components" },
+      { "type": "folder", "value": "miniprogram_npm" },
+      { "type": "folder", "value": "pages/chat" },
+      { "type": "folder", "value": "pages/notifications" },
+      { "type": "folder", "value": "pages/savepoints" },
+      { "type": "folder", "value": "pages/schedules" },
+      { "type": "folder", "value": "pages/settings" },
+      { "type": "folder", "value": "pages/workspace" },
+      { "type": "folder", "value": "utils/vendor" },
+      { "type": "file", "value": "package-lock.json" },
+      { "type": "file", "value": "package.json" }
+    ],
+    "include": []
+  },
+  "condition": {}
+}

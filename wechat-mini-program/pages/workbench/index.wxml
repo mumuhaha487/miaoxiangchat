@@ -1,0 +1,5 @@
+<view class="workbench-screen">
+  <view wx:if="{{loading}}" class="workbench-status">正在打开完整工作台...</view>
+  <view wx:if="{{error}}" class="workbench-error">{{error}}</view>
+  <web-view wx:if="{{src}}" src="{{src}}" bindload="loaded" binderror="failed" />
+</view>

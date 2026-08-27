@@ -1,0 +1,64 @@
+.env
+.env.*
+!.env.example
+
+# Runtime data and private state
+data/
+artifacts/
+qa/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+*.jsonl
+*.pid
+
+# Credentials and signing material
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+project.private.config.json
+upload-result.json
+
+# Dependencies and caches
+node_modules/
+miniprogram_npm/
+.venv/
+.venv*/
+venv/
+site-packages/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.gradle/
+.idea/
+
+# Build outputs
+build/
+build-*/
+build[0-9]*/
+dist/
+coverage/
+*.apk
+*.aab
+*.exe
+*.msi
+*.dll
+*.so
+*.dylib
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# Generated web shells and local tooling
+frontend/public/app-shell/
+frontend/public/downloads/
+android-app/app/src/main/assets/
+vendor/
+.tmp-*/

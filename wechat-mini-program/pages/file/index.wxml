@@ -1,0 +1,9 @@
+<view class="file-screen">
+  <view class="file-panel">
+    <view class="file-icon">文</view>
+    <text class="file-name">{{filename}}</text>
+    <text wx:if="{{status}}" class="file-status">{{status}}</text>
+    <text wx:if="{{error}}" class="file-error">{{error}}</text>
+    <button class="share-button" type="primary" loading="{{busy}}" disabled="{{busy}}" bindtap="retry">{{localPath ? '再次分享' : '重试'}}</button>
+  </view>
+</view>

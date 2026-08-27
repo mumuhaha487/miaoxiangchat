@@ -1,0 +1,10 @@
+<view class="login-gate">
+  <view class="login-status">
+    <image class="login-logo" src="/assets/site-logo.jpg" mode="aspectFill" />
+    <text class="login-title">微信登录</text>
+    <view wx:if="{{busy}}" class="login-spinner" aria-label="正在登录" />
+    <text wx:if="{{busy}}" class="login-copy">正在验证微信身份</text>
+    <text wx:if="{{error}}" class="login-error">{{error}}</text>
+    <button wx:if="{{error}}" class="retry-button" bindtap="authenticate">重新微信登录</button>
+  </view>
+</view>

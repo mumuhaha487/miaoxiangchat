@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtualenv
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Excel temp
+~$*.xlsx
+~$*.xlsm
+~$*.xls
+
+# Generated outputs (if user wants to keep, override locally)
+outputs/
+
+# Personal data (never commit)
+my-data/
+*.local.xlsx
+*.local.csv
+
+# OS
+.DS_Store
+Thumbs.db

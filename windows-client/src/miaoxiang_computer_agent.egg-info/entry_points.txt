@@ -1,0 +1,2 @@
+[console_scripts]
+miaoxiang-computer-agent = vmss_agent.main:main

@@ -1,0 +1,77 @@
+name: mumu-hermes-workspace
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: mumu-hermes-web
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:${APP_PORT:-53138}:80"
+      - "[::]:${APP_PORT:-53138}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - control
+
+  backend:
+    build:
+      context: ./backend
+    container_name: mumu-hermes-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATA_DIR: /app/data
+      PROJECT_HOST_DIR: ${PROJECT_HOST_DIR:-/opt/miaoxiang}
+      WECHAT_APP_ID: ${WECHAT_APP_ID:-}
+    volumes:
+      - ./backend/app:/app/app:ro
+      - ./hermes-worker/builtin-skills:/app/builtin-skills:ro
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - control
+
+  proxy-bridge:
+    build:
+      context: ./proxy-bridge
+    container_name: mumu-proxy-bridge
+    restart: unless-stopped
+    network_mode: host
+    env_file:
+      - .env
+    environment:
+      OUTBOUND_PROXY_URL: ${OUTBOUND_PROXY_URL:-http://127.0.0.1:10808}
+      PROXY_BRIDGE_BIND_HOST: ${PROXY_BRIDGE_BIND_HOST:-172.17.0.1}
+      PROXY_BRIDGE_BIND_PORT: ${PROXY_BRIDGE_BIND_PORT:-10809}
+    security_opt:
+      - no-new-privileges:true
+
+  browser-runtime-image:
+    profiles: ["build-only"]
+    image: ${BROWSER_IMAGE:-mumu-browser-runtime:local}
+    build:
+      context: ./browser-runtime
+    entrypoint: ["/bin/true"]
+
+  hermes-worker-image:
+    profiles: ["build-only"]
+    image: ${HERMES_IMAGE:-mumu-hermes-worker:local}
+    build:
+      context: ./hermes-worker
+    entrypoint: ["/bin/true"]
+
+networks:
+  control:
+    name: mumu-hermes-control

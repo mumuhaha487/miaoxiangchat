@@ -1,0 +1,78 @@
+plugins {
+    id "com.android.application"
+}
+
+def appVersionCode = 24
+def appVersionName = "3.8.7"
+def publicAppOrigin = System.getenv("AICHAT_PUBLIC_ORIGIN") ?: "https://example.com"
+
+android {
+    namespace "cn.vmss.aichat"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "cn.vmss.aichat"
+        minSdk 26
+        targetSdk 35
+        versionCode appVersionCode
+        versionName appVersionName
+        buildConfigField "int", "APP_VERSION_CODE", appVersionCode.toString()
+        buildConfigField "String", "APP_VERSION_NAME", "\"${appVersionName}\""
+        buildConfigField "String", "PUBLIC_APP_ORIGIN", "\"${publicAppOrigin}\""
+
+        def targetAbi = providers.gradleProperty("targetAbi").orElse("arm64-v8a").get()
+        ndk { abiFilters targetAbi }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++17"
+            }
+        }
+    }
+
+    def releaseKeystore = System.getenv("AICHAT_KEYSTORE")
+    def releasePassword = System.getenv("AICHAT_KEYSTORE_PASSWORD")
+    signingConfigs {
+        if (releaseKeystore && releasePassword) {
+            release {
+                storeFile file(releaseKeystore)
+                storePassword releasePassword
+                keyAlias "aichatmumu"
+                keyPassword releasePassword
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (releaseKeystore && releasePassword) signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path file("src/main/cpp/CMakeLists.txt")
+            version "3.22.1"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+dependencies {
+    implementation "androidx.activity:activity:1.10.1"
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "androidx.core:core:1.15.0"
+    implementation "androidx.webkit:webkit:1.12.1"
+    implementation "androidx.work:work-runtime:2.10.1"
+    implementation "com.squareup.okhttp3:okhttp:4.12.0"
+}

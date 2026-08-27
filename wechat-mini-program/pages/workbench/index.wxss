@@ -1,0 +1,26 @@
+.workbench-screen {
+  height: 100vh;
+  background: #e7e9e9;
+}
+
+.workbench-status,
+.workbench-error {
+  position: fixed;
+  z-index: 2;
+  top: 20rpx;
+  left: 24rpx;
+  right: 24rpx;
+  padding: 18rpx 20rpx;
+  border: 1rpx solid #c8cdcf;
+  border-radius: 6rpx;
+  background: #f8f9f9;
+  color: #596164;
+  font-size: 23rpx;
+  text-align: center;
+}
+
+.workbench-error {
+  color: #913d3d;
+  border-color: rgba(145, 61, 61, 0.22);
+  background: #fff4f4;
+}

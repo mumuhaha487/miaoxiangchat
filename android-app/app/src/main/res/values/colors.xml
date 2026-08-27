@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="window_background">#F2F3F4</color>
+    <color name="graphite">#303438</color>
+    <color name="white">#FFFFFF</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_muted">#F1F2F3</color>
+    <color name="line">#D9DCDE</color>
+    <color name="muted">#747A7E</color>
+    <color name="accent">#277D82</color>
+    <color name="danger">#B33A3A</color>
+</resources>

@@ -1,0 +1,9 @@
+{
+  "name": "aichatmumu-wechat-login",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "3.0.1"
+  }
+}

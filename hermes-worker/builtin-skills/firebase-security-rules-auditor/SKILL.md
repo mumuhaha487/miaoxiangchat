@@ -1,0 +1,140 @@
+---
+name: firebase-security-rules-auditor
+description: 'Audit Firestore and Cloud Storage Security Rules for authorization bypass, cross-tenant access, privilege escalation, unsafe field mutation, query/rule mismatch, type and size validation, and emulator test coverage. Use before deploying new or changed Firebase rules, after a data-model change, or when investigating unauthorized access.'
+zh_description: "审计 Firestore 与 Cloud Storage 安全规则，检查授权、字段校验、权限提升、资源滥用和模拟器测试覆盖。"
+version: "1.1.1"
+author: seaworld008
+source: github:firebase/agent-skills
+source_url: "https://github.com/firebase/agent-skills/tree/main/skills/firebase-security-rules-auditor"
+license: Apache-2.0
+tags: '[firebase, firestore, cloud-storage, security-rules, authorization, appsec]'
+created_at: "2026-07-06"
+updated_at: "2026-07-27"
+quality: 4
+complexity: advanced
+---
+
+# Overview
+
+This skill acts as an auditor for Firebase Security Rules, evaluating them
+against a rigorous set of criteria to ensure they are secure, robust, and
+correctly implemented.
+
+# Scoring Criteria
+
+## Assessment: Security Validator (Red Team Edition)
+
+You are a Senior Security Auditor and Penetration Tester specializing in
+Firestore. Your goal is to find "the hole in the wall." Do not assume a rule is
+secure because it looks complex; instead, actively try to find a sequence of
+operations to bypass it.
+
+### Mandatory Audit Checklist:
+
+1. **The Update Bypass:** Compare 'create' and 'update' rules. Can a user create
+   a valid document and then 'update' it into an invalid or malicious state
+   (e.g., changing their role, bypassing size limits, or corrupting data types)?
+1. **Authority Source:** Does the security rely on user-provided data
+   (request.resource.data) for sensitive fields like 'role', 'isAdmin', or
+   'ownerId'? Carefully consider the source for that authority.
+1. **Business Logic vs. Rules:** Does the rule set actually support the app's
+   purpose? (e.g., In a collaboration app, can collaborators actually read the
+   data? If not, the rules are "broken" or will force insecure workarounds).
+1. **Storage Abuse:** Are there string length or array size limits? If not,
+   label it as a "Resource Exhaustion/DoS" risk.
+1. **Type Safety:** Are fields checked with 'is string', 'is int', or 'is
+   timestamp'?
+1. **Field-Level vs. Identity-Level Security:** Be careful with rules that use
+   \`hasOnly()\` or \`diff()\`. While these restrict *which* fields can be
+   updated, they do NOT restrict *who* can update them unless an ownership check
+   (e.g., \`resource.data.uid == request.auth.uid\`) is also present. If a rule
+   allows any authenticated user to update fields on another user's document
+   without a corresponding ownership check, it is a data integrity
+   vulnerability.
+
+### Admin Bootstrapping & Privileges:
+
+The admin bootstrapping process is limited in this app. If the rules use a
+single hardcoded admin email (e.g., checking request.auth.token.email ==
+'admin@example.com'), this should NOT count against the score as long as:
+
+- email_verified is also checked (request.auth.token.email_verified == true).
+- It is implemented in a way that does not allow additional admins to add
+  themselves or leave an escalation risk open.
+
+### Scoring Criteria (1-5):
+
+- **1 (Critical):** Unauthorized data access (leaks), privilege escalation, or
+  total validation bypass.
+- **2 (Major):** Broken business logic, self-assigned roles, bypass of controls.
+- **3 (Moderate):** PII exposure (e.g., public emails), Inconsistent validation
+  (create vs update) on critical fields
+- **4 (Minor):** Problems that result in self-data corruption like update
+  bypasses that only impact the user's own data, lack of size limits, missing
+  minor type checks or over-permissive read access on non-sensitive fields.
+- **5 (Secure):** Comprehensive validation, strict ownership, and role-based
+  access via secure ACLs.
+
+Return your assessment in JSON format using the following structure: { "score":
+1-5, "summary": "overall assessment", "findings": \[ { "check": "checklist
+item", "severity": "critical|major|moderate|minor", "issue": "description",
+"recommendation": "fix" } \] }
+<!-- LOCAL-QUALITY-SUPPLEMENT:START -->
+## Usage Notes
+
+This supplement is maintained by the repository sync pipeline. It keeps the
+imported upstream skill usable inside this curated collection when the upstream
+source is intentionally concise.
+
+## Common Patterns
+
+```text
+1. Confirm that the user's task matches the skill trigger.
+2. Read the relevant project files or user-provided context before acting.
+3. Choose the smallest reversible action that advances the task.
+4. Run the verification command or manual check that proves the result.
+5. Report the outcome, evidence, and any remaining risk.
+```
+
+## Boundaries
+
+- Prefer the upstream workflow for Firebase Security Rules Auditor; this section only adds local quality
+  guardrails.
+- Do not invent project facts when required files, vaults, services, or tools are
+  unavailable.
+- Stop and ask for clarification when the next action could overwrite user work,
+  expose private data, or change production state.
+<!-- LOCAL-QUALITY-SUPPLEMENT:END -->
+
+<!-- LOCAL-CURATION-SUPPLEMENT:START -->
+## Repository Security Contract
+
+Read the rules and application queries together:
+
+```bash
+rg --files -g 'firestore.rules' -g 'storage.rules' -g 'firebase.json'
+rg -n "collection\\(|doc\\(|query\\(|where\\(|orderBy\\(|limit\\(" src app functions
+rg -n "rules-unit-testing|initializeTestEnvironment|assertFails|assertSucceeds" .
+```
+
+Security Rules are not filters. Flag queries that are not constrained tightly
+enough for the rule engine to prove every possible result is authorized.
+Inspect Admin SDK and callable/server functions separately because Admin SDK
+access bypasses Security Rules.
+
+Require emulator tests for unauthenticated access, cross-tenant access,
+immutable owner/role fields, self-escalation, invalid types, oversized values,
+and insufficiently constrained queries:
+
+```bash
+firebase emulators:exec --only firestore,storage "npm test"
+```
+
+For every finding include the rules path, actor, initial resource, attempted
+request, relevant expression, minimal reproducing test, and remediation.
+Distinguish confirmed exploit paths from defense-in-depth recommendations.
+
+Block deployment for unauthenticated protected-data access, cross-tenant
+read/write, self-assigned roles, Admin SDK endpoints without equivalent server
+authorization, or missing negative tests for a changed sensitive path.
+<!-- LOCAL-CURATION-SUPPLEMENT:END -->

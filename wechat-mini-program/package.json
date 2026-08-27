@@ -1,0 +1,18 @@
+{
+  "name": "aichatmumu-wechat-mini-program",
+  "version": "2.5.1",
+  "private": true,
+  "description": "AIchatMUMU native WeChat Mini Program client",
+  "scripts": {
+    "test": "node tests/validate-project.mjs",
+    "upload": "node scripts/upload.mjs",
+    "upload:cloud-login": "node scripts/upload-cloud-login.mjs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "miniprogram-ci": "2.1.31"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

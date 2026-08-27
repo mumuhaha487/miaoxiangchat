@@ -1,0 +1,18 @@
+# 核心：openpyxl 生成 Excel 文件
+openpyxl>=3.1.2
+
+# pandas 用于数据处理 + Excel 读写
+pandas>=2.0.0
+
+# numpy 是 pandas 依赖，显式列出
+numpy>=1.24.0
+
+# 可选：CLI 美化
+rich>=13.7.1
+
+# 可选：YAML 配置（部分模板生成器用）
+pyyaml>=6.0
+
+# 测试（开发依赖）
+# pytest>=8.0
+# pytest-cov>=5.0

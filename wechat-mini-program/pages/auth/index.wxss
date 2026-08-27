@@ -1,0 +1,64 @@
+.login-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx;
+  background: #f5f6f6;
+}
+
+.login-status {
+  width: 560rpx;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #303538;
+  text-align: center;
+}
+
+.login-logo {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 28rpx;
+}
+
+.login-title {
+  margin-top: 24rpx;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.login-spinner {
+  width: 42rpx;
+  height: 42rpx;
+  margin-top: 36rpx;
+  border: 5rpx solid #d9dede;
+  border-top-color: #587074;
+  border-radius: 50%;
+  animation: login-spin 0.8s linear infinite;
+}
+
+.login-copy,
+.login-error {
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
+.login-copy { color: #737b7f; }
+.login-error { color: #913d3d; }
+
+.retry-button {
+  width: 100%;
+  min-height: 78rpx;
+  margin-top: 28rpx;
+  color: #ffffff;
+  background: #07c160;
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+@keyframes login-spin {
+  to { transform: rotate(360deg); }
+}

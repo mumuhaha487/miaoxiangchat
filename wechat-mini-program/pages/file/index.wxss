@@ -1,0 +1,57 @@
+.file-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx 30rpx;
+  box-sizing: border-box;
+  background: #eef0f0;
+}
+
+.file-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22rpx;
+}
+
+.file-icon {
+  width: 92rpx;
+  height: 112rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #bfc7c9;
+  border-radius: 8rpx;
+  color: #4f6569;
+  background: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.file-name {
+  max-width: 660rpx;
+  color: #30383a;
+  font-size: 28rpx;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.file-status,
+.file-error {
+  color: #788184;
+  font-size: 23rpx;
+  text-align: center;
+}
+
+.file-error { color: #963d45; }
+
+.share-button {
+  width: min(520rpx, 100%);
+  margin-top: 12rpx;
+  border-radius: 8rpx;
+  background: #52696d;
+  font-size: 27rpx;
+}
