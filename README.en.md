@@ -12,10 +12,9 @@
   <a href="README.ja.md">日本語</a>
 </p>
 
-## Live demo
+## Request demo access
 
-- Demo: [http://ai.vmss.cn/](http://ai.vmss.cn/)
-- To request a test activation code, email [vrhjio4405@163.com](mailto:vrhjio4405@163.com).
+- To try the test demo, email [vrhjio4405@163.com](mailto:vrhjio4405@163.com). The maintainer will reply with the Demo address and an activation code.
 - Agent mode is CPU-, memory-, and browser-intensive, so self-hosting is recommended for sustained use. In your request, state that you **accept the capacity, availability, and resource limits of the shared test environment**.
 
 > The demo is for evaluation only. Do not upload credentials, secrets, private documents, or other sensitive data.
